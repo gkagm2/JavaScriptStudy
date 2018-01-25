@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+//객체의 생성
+        //방법1
+        var grades = { 'egoing':10, 'k8805':5, 'sorialgi':80};
+
+        //방법2
+        // var grades = {};
+        // grades['egoing'] = 10;
+        // grades['k8805'] = 5;        
+        // grades['sorialgi'] = 80;
+
+        //방법3
+        // var grades = new Object();
+        // grades['egoing'] = 10;
+        // grades['k8805'] = 5;        
+        // grades['sorialgi'] = 80;
+
+//객체 접근 방법
+        
+        //방법1
+        document.write(grades['sorialgi']);
+
+        //방법2
+        document.write(grades.sorialgi);
+
+
+
+        var grades = {'egoing':10, 'k8805':6, 'sorialgi':80};
+
+        for(key in grades){
+            document.write("key:" + key + "value : " + grades[key] + "<br>");
+        }
+    
+
+        var grades = {
+            'list': {'egoing':10, 'kej':6, 'sor':80},
+            'show' : function (){
+                for(var name in this.list){
+                    document.write(name +  ':' + this.list[name]+ "<br>");
+                }
+                
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </script>
+</body>
+</html>

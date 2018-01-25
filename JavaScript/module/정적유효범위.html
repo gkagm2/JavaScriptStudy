@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        //자바 스크립트 유효범위... 자바와 다르다.. 중요하네
+    var i = 5;
+    
+    function a(){
+        var i=10;
+        b();
+    }
+    
+    function b(){
+        document.write(i);
+    }
+    a();
+    </script>
+</body>
+</html>
