@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        
+        //cousure
+
+        //함수 안에 함수는 내부함수
+        //외부함수 : outter()
+        //내부함수 : inner()
+        function outter(){
+            var title = 'coding everybody';            
+            function inner(){
+                alert(titel);//내부함수에서 외부함수에 정의되었는 지역변수를 접근할 수 있다
+            }
+            inner(); //inner함수 호출
+        }
+    
+        /*
+        클로저(closure)는 내부함수와 밀접한 관계를 가지고 있는 주제다. 
+        내부함수는 외부함수의 지역변수에 접근 할 수 있는데 외부함수의 실행이 끝나서 외부함수가 소멸된 이후에도 내부함수가 외부함수의 변수에 접근 할 수 있다. 
+        이러한 메커니즘을 클로저라고 한다. 아래 예제는 이전의 예제를 조금 변형한 것이다. 
+        결과는 경고창으로 coding everybody를 출력할 것이다.
+        */
+
+        function outter(){
+            var title = 'coding everybody!!!';
+            return function(){
+                alert(title);
+            }
+        }
+        var inner = outter();
+        inner();
+        
+        
+
+
+        //더 복잡한 예제
+        function factory_movie(title){
+            return { //객체를 리턴
+                get_title : function(){ //객체의 속성인데 함수가 정의되어 있다
+                    return title;
+                },
+                set_title : function(_title){//메소드라고 보면 될 듯
+                    title = _title // _로 시작하면 privite
+                }
+            }
+        }
+        ghost = factory_movie('Ghost in the shell');
+        matrix = factory_movie('Matrix');
+
+        alert(ghost.get_title());
+        alert(matrix.get_title());
+        
+        ghost.set_title('공각기동대');
+ 
+        alert(ghost.get_title());
+        alert(matrix.get_title());
+        
+        
+
+
+
+
+
+
+
+        //함수가 함수 외부의 컨텍스트에 접근할 수 있을 것으로 기대하겠지만 위의 결과는 아래와 같다.
+        var arr = []
+        for(var i = 0; i < 5; i++){
+            arr[i] = function(){
+                return i;
+            }
+        }
+        for(var index in arr) {
+            console.log(arr[index]());
+        }
+        
+        //위의 코드는 아래와 같이 변경해야 한다.
+        var arr = []
+        for(var i = 0; i < 5; i++){
+            arr[i] = function(id) {
+                return function(){
+                    return id;
+                }
+            }(i);
+        }
+        for(var index in arr) {
+            console.log(arr[index]());
+        }
+
+
+
+        //  클로저 참고
+        // https://developer.mozilla.org/ko/docs/JavaScript/Guide/Closures
+        // http://ejohn.org/apps/learn/#48
+        // http://blog.javarouka.me/2012/01/javascripts-closure.html
+
+    </script>
+
+
+</body>
+</html>
