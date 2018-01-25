@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        function cal(func, num) {
+            return func(num);
+        }
+
+        function increase(num){
+            return num + 1;
+        }
+
+        function decrease(num){
+            return num - 1;
+        }
+
+        alert(cal(increase, 1)); //함수를 값처럼 사용할 수 있음.
+        alert(cal(decrease, 1));
+        
+    </script>
+
+
+
+
+</body>
+</html>
