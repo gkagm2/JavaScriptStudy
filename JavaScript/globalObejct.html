@@ -1,0 +1,20 @@
+<script>
+    function func(){
+        alert('Hello?');
+    }
+
+    //전역객체(Global oject)는 특수한 객체다. 모든 객체는 이 전역객체의 프로퍼티다.
+    func(); //func()와 window.func()는 모두 실행이 된다.
+    window.func(); //모든 전역변수와 함수는 사실 window 객체의 프로퍼티다. 
+    //객체를 명시하지 않으면 암시적으로 window의 프로퍼티로 간주된다.
+    
+    var o = {'func':function(){
+        alert('Alloha?');
+    }}
+    o.func();
+    window.o.func();
+
+
+
+
+</script>
