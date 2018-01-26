@@ -1,0 +1,21 @@
+<script>
+    function zero(){
+        console.log(
+            'zero.length', zero.length,
+            'arguments', arguments.length
+        );
+    }
+    //zero.lenght : 0 , arguments.lenght : 0
+    document.write(zero());
+
+    function one(arg1){
+        console.log(
+            'one.length', one.length,//함수의 매개변수의 개수
+            'arguments', arguments.length//실제 몇개의 인자를 받았는지의 개수
+        );
+    }
+    one('val1','val2');
+    //one.lenght 1, arguments.lenght 2
+
+    //arguments는 배열이 아니고 arguments 객체의 인스턴스이다.
+</script>
