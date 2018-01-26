@@ -1,0 +1,59 @@
+<script>
+//생성자
+
+function Person(){}
+var p = new Person(); //Person()을 그냥 함수라고 하지 않고 생성자라고 한다. 무엇을 생성하는가? 객체를 생성한다.
+p.name = 'egoing';
+p.introduce = function(){
+    return 'My name is ' + this.name;
+}
+
+document.write(p.introduce());
+
+
+//생성자(constructor)는 객체를 만드는 역할을 하는 함수다. 자바스크립트에서 함수는 재사용 가능한 로직의 묶음이 아니라 객체를 만드는 창조자라고 할 수 있다.
+function Person(){
+    var p = new Person();
+    p.name = 'egoing';
+    p.introduce = function(){
+        return 'My name is' + this.name;
+    }
+}
+document.write(p.introduce());
+
+//함수를 호출할 때 new을 붙이면 새로운 객체를 만든 후에 이를 리턴한다.
+//위의 코드는 새로운 객체를 변수 p에 담았다. 여러사람을 위한 객체를 만든다면 아래와 같이 코드를 작성해야 한다.
+
+function Person(){
+    var p1 = new Person();
+    p1.name = 'egoing';
+    p1.introduce = function(){
+        return 'My name is ' + this.name;
+    }
+    document.write(p1.introduce() + " <br />");
+}
+
+var p2 = new Person();
+p2.name = 'leezche';
+p2.introduce = function(){
+    return 'My name is ' + this.name;
+}
+
+document.write(p2.introduce());
+
+//별로 개선된 것이 없다.
+
+function Person(name) {
+    this.name = name;
+    this.introduce = function(){
+        return 'My name is ' + this.name;
+    }
+}
+
+var p1 = new Person('egoing');
+document.write(p1.introduce() + "<br />");
+
+var p2 = new Person('leezche');
+document.write(p2.introduce());
+
+</script>

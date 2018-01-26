@@ -1,0 +1,36 @@
+<script>
+o1 = {val1:1, val2:2, val3:3}
+o2 = {v1:10, v2:50, v3:100, v4:25}
+function sum() {
+    var _sum = 0;
+
+    for(name in this){ //this에 var this = o1; 들어가 있다고 보면 된다. 
+        _sum += this[name];
+    }
+    return _sum;
+}
+
+//o1이라는 객체를 첫번째 인자로 줬다.
+alert(sum.apply(o1));
+alert(sum.apply(o2));
+
+///////////////////위에 소스와 아래의 소스는 같다.
+
+
+function sum() {
+    var _sum = 0;
+
+    for(name in this){ //this에 var this = o1; 들어가 있다고 보면 된다. 
+        if(typeof this[name] !== 'function') //함수인경우에는 스킵.
+            _sum += this[name];
+    }
+    return _sum;
+}
+o1 = {val1:1, val2:2, val3:3, sum:sum}
+o2 = {v1:10, v2:50, v3:100, v4:25, sum:sum}
+
+//o1이라는 객체를 첫번째 인자로 줬다.
+alert(o1.sum());
+alert(o2.sum());
+
+</script>

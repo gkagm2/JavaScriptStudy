@@ -2,6 +2,9 @@
 
 function sum(){
     var i, _sum = 0;
+    //arguments는 javascript와 약속되어있는 특수한 이름의 변수명임. 유사 배열
+//함수에는 arguments라는 변수에 담긴 숨겨진 유사 배열이 있다. 이 배열에는 함수를 호출할 때 입력한 인자가 담겨있다.
+
     for(i=0;i< arguments.length;i++){
         document.write(i+ ' : ' + arguments[i] + '<br />');
         _sum += arguments[i];
