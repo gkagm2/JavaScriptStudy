@@ -1,0 +1,34 @@
+<script>
+
+    function func(){}
+    //prototype안에는 객체가 들어있다.
+    //func.prototype
+
+
+
+
+    //ex1
+    function Ultra(){}
+    Ultra.prototype.UltraProp = true;   
+
+    function Super(){}
+    Super.prototype = new Ultra();
+
+    function Sub(){}
+    Sub.prototype = new Super();
+
+    var o = new Sub();
+    o.UltraProp = 1;
+    console.log(o.UltraProp);
+
+    
+
+
+
+    
+
+
+
+
+
+</script>
