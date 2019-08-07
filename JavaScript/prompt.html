@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>prompt</title>
+</head>
+<body>
+    <h1>prompt() 메소드</h1>
+    <button onclick="PromptDialogBox()"> prompt 대화 상자</button>
+    <p id="text"></p>
+    <script>
+        function PromptDialogBox(){
+            var inputStr = prompt("당신의 이름을 입력해 주세요 : ", "홍길동");
+
+            if(inputStr != null){
+                document.getElementById("text").innerHTML = "당신의 이름은 " + inputStr + "입니다.";
+            }
+        }
+    </script>
+</body>
+</html>

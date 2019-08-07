@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>confirm</title>
+</head>
+<body>
+
+    <h1>confirm() 메소드</h1>
+    <button onclick="ConfirmDialogBox()">confirm대화 상자</button>
+
+    <p id="text"></p>
+
+    <script>
+        function ConfirmDialogBox(){
+            var str; 
+
+            if(confirm("확인이나 취소를 누르셈") == true){
+                str = "확인 누름";
+            }else{
+                str = "취소 누름";
+            }
+
+            document.getElementById("text").innerHTML = str;
+        }
+    </script>
+</body>
+</html>
