@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>instanceof</title>
+</head>
+<body>
+
+    <h1>instanceof 연산자 </h1>
+
+	<script>
+        var str = new String("이것은 문자열입니다.");
+        document.write(str + "<br>");
+        
+        document.write((str instanceof Object) + "<br>");
+        document.write((str instanceof String) + "<br>");
+        document.write((str instanceof Array) + "<br>");
+        document.write((str instanceof Number) + "<br>");
+        document.write(str instanceof Boolean);
+    </script>
+</body>
+</html>

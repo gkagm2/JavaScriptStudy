@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>arguments 객체</h1>
+
+
+    <p>arguments 객체는 배열과 비슷할 뿐, 실제로 Array 객체가 아니다. 숫자로 된 인덱스와 length 프로퍼티만을 가지고 있을 뿐, 모든 것을 배열처럼 다룰 수는 없다. </p>
+	<script>
+
+        
+        function addNum(){
+            var sum = 0;
+            for(var i= 0 ; i < arguments.length ; i++){
+                sum += arguments[i];
+            }
+            return sum;
+        }
+
+		document.write("인수가 3개 전달되면 반환값은 " + addNum(1, 2, 3) + "입니다.<br>");
+		document.write("인수가 2개 전달되면 반환값은 " + addNum(1, 2) + "입니다.<br>");
+		document.write("인수가 1개 전달되면 반환값은 " + addNum(1) + "입니다.<br>");
+		document.write("인수가 아무것도 전달되지 않으면 반환값은 " + addNum() + "입니다.<br>");
+		document.write("인수가 10개나 전달되도 반환값은 " + addNum(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) + "로 잘 동작합니다!!");
+	</script>
+	
+</body>
+</html>

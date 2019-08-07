@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arrLit = [1, true, "JavaScript"]
+        var arrObj = Array(1, true, "JavaScript");
+        var arrNewObj = new Array(1, true, "JavaScript");
+
+        document.writeln(arrLit);
+        document.writeln(arrObj);
+        document.writeln(arrNewObj);
+
+        var arr = [1, true, "Java"];
+		arr.push("Script");				// push() 메소드를 이용하는 방법
+		document.write(arr + "<br>");
+
+		arr[arr.length] = 100;			// length 프로퍼티를 이용하는 방법
+		document.write(arr + "<br>");
+
+		arr[10] = "자바스크립트";		// 특정 인덱스를 지정하여 추가하는 방법
+		document.write(arr + "<br>");
+        document.write(arr[7]);			// undefined
+        
+
+        
+
+    </script>
+</body>
+</html>

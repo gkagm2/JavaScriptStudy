@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+	<h1>같은 이름의 전역 변수와 지역 변수</h1>
+
+	<script>
+		var num = 10;		// 전역 변수 num을 선언함.
+		function globalNum() {
+			var num = 20;	// 같은 이름의 지역 변수 num을 선언함.
+			document.write("함수 내부에서 지역 변수 num의 값은 " + num + "입니다.<br>");
+			document.write("함수 내부에서 전역 변수 num의 값은 " + window.num + "입니다.<br>");
+		}
+        globalNum();		// 함수 globalNum()을 호출함.
+	</script>
+</body>
+</html>
