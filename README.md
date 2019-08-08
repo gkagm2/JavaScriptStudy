@@ -156,3 +156,36 @@ String(false);      // false
 String(Boolean(1)); // true
 String(Boolean(0)); // false
 ~~~
+
++ 자바스크립트 객체  
+객체란 이름(name)과 값(value)으로 구성된 프로퍼티(property)의 정렬되지 않은 집합.  
+프로퍼티의 값으로 함수가 올 수도 있는데, 이러한 프로퍼티를 메소드(method)라고 한다.  
+~~~
+var cat = "나비"; // 일반적인 변수의 선언
+// 객체도 많은 값을 가지는 변수의 하나임.
+var kitty = { name: "나비", family: "코리안 숏 헤어", age: 1, weight: 0.1 };
+cat          // 나비
+kitty.name   // 나비
+~~~
+
++ 객체의 프로터피를 순회하는 방법 중 for / in 문 이외에도 다음과 같은 메소드를 사용할 수 있다.  
+1. Object.keys() : Object.keys() 메소드는 해당 객체가 가진 고유 프로퍼티 중에서 열거할 수 있는 프로퍼티의 이름을 배열에 담아 반환합니다.
+2. Object.getOwnPropertyNames() : Object.getOwnPropertyNames() 메소드는 해당 객체가 가진 모든 고유 프로퍼티의 이름을 배열에 담아 반환합니다.  
+e.g)  
+~~~
+function Dog(color, name, age) {
+    this.color = color;
+    this.name = name;
+    this.age = age;
+}
+var myDog = new Dog("흰색", "마루", 1);
+
+// color 프로퍼티의 enumerable 속성을 false로 설정함.
+Object.defineProperty(myDog, 'color', {enumerable : false} );
+// 객체가 가진 고유 프로퍼티 중에서 열거할 수 있는 프로퍼티 이름을 배열에 담아 반환함.
+document.write(Object.keys(myDog) + "<br>");       // name, age
+// 객체가 가진 모든 고유 프로퍼티의 이름을 배열에 담아 반환함.
+document.write(Object.getOwnPropertyNames(myDog)); // color, name, age
+~~~
+
+
