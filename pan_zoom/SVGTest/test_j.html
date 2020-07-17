@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS test</title>
+</head>
+
+<body>
+    <table id="outside">
+        <tr>
+            <td id="t1">one</td>
+        </tr>
+        <tr>
+            <td id="t2">two</td>
+        </tr>
+    </table>
+
+    <script>
+        function modifyText2() {
+            console.log("dd");
+            var t2 = document.getElementById("t2");
+            if (t2.firstChild.nodeValue == "two") {
+                t2.firstChild.nodeValue = "four";
+            } else {
+                t2.firstChild.nodeValue = "one";
+            }
+        }
+
+        // add event listener to table
+        var el = document.getElementById("outside");
+        el.addEventListener("", modifyText2,false);
+
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- <script type="text/javascript" src="https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.js"></script> -->
+  <script type="text/javascript" src="./svg-pan-zoom.js"></script>
+
+
+  <script>
+    function SearchText() {
+      console.log("clicked search text");
+      var ele = document.getElementById("serachText")
+      var searchKeyword = ele.value
+      console.log("keyword : " + searchKeyword);
+
+      var svgEle = document.getElementsByTagName("svg")
+      console.log("svg ele : " + svgEle);
+      for (var i = 0; i < svgEle.length; ++i) {
+
+        var textTag = svgEle[i].getElementsByTagName("text")
+        console.log(i + "-> " + svgEle[i].getElementsByTagName("text"))
+        break
+      }
+      var i = 0
+      var isFind = false
+      for (; i < textTag.length; ++i) {
+        if (searchKeyword === textTag[i].textContent) {
+          isFind = true;
+          console.log("x : " + textTag[i].getAttribute("x") + ", y : " + textTag[i].getAttribute("y"))
+          break;
+        }
+      }
+      if (isFind == true) {
+        var _x = textTag[i].getAttribute("x")
+        var _y = textTag[i].getAttribute("y")
+        
+        var focusZoomControl = document.createElementNS(SvgUtils.svgNS, 'g');
+        focusZoomControl.setAttribute('id', 'svg-pan-zoom-reset-pan-zoom');
+        focusZoomControl.setAttribute('transform', 'translate(' + _x + ' ' + _y + ' scale(0.4)'); // _x : 5, _y : 35
+        focusZoomControl.setAttribute('class', 'svg-pan-zoom-control');
+        focusZoomControl.addEventListener('click', function () { instance.getPublicInstance().reset() }, false);
+        focusZoomControl.addEventListener('touchstart', function () { instance.getPublicInstance().reset() }, false);
+
+        var focusZoomControlBackground = document.createElementNS(SvgUtils.svgNS, 'rect'); // TODO change these background space fillers to rounded rectangles so they look prettier
+        focusZoomControlBackground.setAttribute('x', _x);
+        focusZoomControlBackground.setAttribute('y', _y);
+        focusZoomControlBackground.setAttribute('width', '182'); // larger than expected because the whole group is transformed to scale down
+        focusZoomControlBackground.setAttribute('height', '58');
+        focusZoomControlBackground.setAttribute('class', 'svg-pan-zoom-control-background');
+        focusZoomControl.appendChild(focusZoomControlBackground);
+
+        var focusZoomControlShape1 = document.createElementNS(SvgUtils.svgNS, 'path');
+        focusZoomControlShape1.setAttribute('d', 'M33.051,20.632c-0.742-0.406-1.854-0.609-3.338-0.609h-7.969v9.281h7.769c1.543,0,2.701-0.188,3.473-0.562c1.365-0.656,2.048-1.953,2.048-3.891C35.032,22.757,34.372,21.351,33.051,20.632z');
+        focusZoomControlShape1.setAttribute('class', 'svg-pan-zoom-control-element');
+        focusZoomControl.appendChild(focusZoomControlShape1);
+
+        var focusZoomControlShape2 = document.createElementNS(SvgUtils.svgNS, 'path');
+        focusZoomControlShape2.setAttribute('d', 'M170.231,0.5H15.847C7.102,0.5,0.5,5.708,0.5,11.84v38.861C0.5,56.833,7.102,61.5,15.847,61.5h154.384c8.745,0,15.269-4.667,15.269-10.798V11.84C185.5,5.708,178.976,0.5,170.231,0.5z M42.837,48.569h-7.969c-0.219-0.766-0.375-1.383-0.469-1.852c-0.188-0.969-0.289-1.961-0.305-2.977l-0.047-3.211c-0.03-2.203-0.41-3.672-1.142-4.406c-0.732-0.734-2.103-1.102-4.113-1.102h-7.05v13.547h-7.055V14.022h16.524c2.361,0.047,4.178,0.344,5.45,0.891c1.272,0.547,2.351,1.352,3.234,2.414c0.731,0.875,1.31,1.844,1.737,2.906s0.64,2.273,0.64,3.633c0,1.641-0.414,3.254-1.242,4.84s-2.195,2.707-4.102,3.363c1.594,0.641,2.723,1.551,3.387,2.73s0.996,2.98,0.996,5.402v2.32c0,1.578,0.063,2.648,0.19,3.211c0.19,0.891,0.635,1.547,1.333,1.969V48.569z M75.579,48.569h-26.18V14.022h25.336v6.117H56.454v7.336h16.781v6H56.454v8.883h19.125V48.569z M104.497,46.331c-2.44,2.086-5.887,3.129-10.34,3.129c-4.548,0-8.125-1.027-10.731-3.082s-3.909-4.879-3.909-8.473h6.891c0.224,1.578,0.662,2.758,1.316,3.539c1.196,1.422,3.246,2.133,6.15,2.133c1.739,0,3.151-0.188,4.236-0.562c2.058-0.719,3.087-2.055,3.087-4.008c0-1.141-0.504-2.023-1.512-2.648c-1.008-0.609-2.607-1.148-4.796-1.617l-3.74-0.82c-3.676-0.812-6.201-1.695-7.576-2.648c-2.328-1.594-3.492-4.086-3.492-7.477c0-3.094,1.139-5.664,3.417-7.711s5.623-3.07,10.036-3.07c3.685,0,6.829,0.965,9.431,2.895c2.602,1.93,3.966,4.73,4.093,8.402h-6.938c-0.128-2.078-1.057-3.555-2.787-4.43c-1.154-0.578-2.587-0.867-4.301-0.867c-1.907,0-3.428,0.375-4.565,1.125c-1.138,0.75-1.706,1.797-1.706,3.141c0,1.234,0.561,2.156,1.682,2.766c0.721,0.406,2.25,0.883,4.589,1.43l6.063,1.43c2.657,0.625,4.648,1.461,5.975,2.508c2.059,1.625,3.089,3.977,3.089,7.055C108.157,41.624,106.937,44.245,104.497,46.331z M139.61,48.569h-26.18V14.022h25.336v6.117h-18.281v7.336h16.781v6h-16.781v8.883h19.125V48.569z M170.337,20.14h-10.336v28.43h-7.266V20.14h-10.383v-6.117h27.984V20.14z');
+        focusZoomControlShape2.setAttribute('class', 'svg-pan-zoom-control-element');
+        focusZoomControl.appendChild(focusZoomControlShape2);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  
+  <input type="text" value="value" id="serachText"/>a
+  <button onclick="SearchText()">검색</button>
+
+
+
+  <div id="container" style="width: 1000px; height: 1000px; border:1px solid rgb(235, 43, 43); ">
+
+    <svg id="svg-id" xmlns="http://www.w3.org/2000/svg"
+      style="display: inline; width:inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit;background-color:black"
+      version="1.1">
+
+      <text class="layerId1" x="30.978569" y="-258.705475 " fill="rgb(0.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,30.978569,-258.705475 )" font-size="1.633864">CO</text>text (10396) {layer Id:1} 71
+      <text class="layerId4" x="65.996666" y="-260.971985 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,65.996666,-260.971985 )" font-size="1.633864">CO-STS316L-3/8B-D-N-01</text>text (10476) {layer Id:4} 72
+      <text class="layerId0" x="388.298767" y="-44.750000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,388.298767,-44.750000 )" font-size="3.400000">김지아 / 2017.09</text>text (10376) {layer Id:0} 781
+      <text class="layerId0" x="388.298767" y="-37.250000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,388.298767,-37.250000 )" font-size="3.400000">홍길동 / 2017.09</text>text (10370) {layer Id:0} 783
+      <text class="layerId6" x="199.514404" y="-32.238495 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,199.514404,-32.238495 )" font-size="1.633864">GN2-STS316L-1/4B-S-N-01</text>text (10488) {layer Id:6} 784
+      <text class="layerId7" x="207.907059" y="-32.238495 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,207.907059,-32.238495 )" font-size="1.633864">PCW_S-STS304L-3/8B-S-N-01</text>text (10490) {layer Id:7} 785
+      <text class="layerId7" x="216.274963" y="-32.238495 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,216.274963,-32.238495 )" font-size="1.633864">PCW_R-STS304L-3/8B-S-N-01</text>text (10491) {layer Id:7} 786
+      <text class="layerId6" x="247.867569" y="-32.238495 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,247.867569,-32.238495 )" font-size="1.633864">GN2-STS316L-1/4B-S-N-02</text>text (10489) {layer Id:6} 787
+      <text class="layerId7" x="256.345978" y="-32.238522 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,256.345978,-32.238522 )" font-size="1.633864">PCW_S-STS304L-3/8B-S-N-02</text>text (10492) {layer Id:7} 788
+      <text class="layerId13" x="73.501930" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,73.501930,-292.079468 )" font-size="4.250000">B</text>text (11014) {layer Id:13} 859
+      <text class="layerId13" x="118.516693" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,118.516693,-292.079468 )" font-size="4.250000">C</text>text (11016) {layer Id:13} 860
+      <text class="layerId13" x="208.835266" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,208.835266,-292.079468 )" font-size="4.250000">E</text>text (11020) {layer Id:13} 862
+      <text class="layerId13" x="344.072235" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,344.072235,-292.079468 )" font-size="4.250000">H</text>text (11026) {layer Id:13} 865
+      <text class="layerId13" x="2.699350" y="-169.808716 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,2.699350,-169.808716 )" font-size="4.250000">3</text>text (11032) {layer Id:13} 868
+      <text class="layerId13" x="355.653412" y="-285.318481 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,355.653412,-285.318481 )" font-size="4.250000">-NOTE-</text>text (11039) {layer Id:13} 872
+      <text class="layerId13" x="399.550476" y="-136.000000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,399.550476,-136.000000 )" font-size="3.400000">CHK</text>text (11056) {layer Id:13} 878
+      <text class="layerId13" x="354.000000" y="-48.200001 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,354.000000,-48.200001 )" font-size="2.210000">CHECKED BY/ DATE(설계사)</text>text (11060) {layer Id:13} 882
+      <text class="layerId13" x="403.421906" y="-8.400000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,403.421906,-8.400000 )" font-size="2.210000">REV.(V)</text>text (11062) {layer Id:13} 884
+      <text class="layerId13" x="354.000000" y="-13.200000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,354.000000,-13.200000 )" font-size="2.210000">REV. NO.</text>text (11077) {layer Id:13} 895
+      <text class="layerId13" x="28.390821" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,28.390821,-292.079468 )" font-size="4.250000">A</text>text (11093) {layer Id:13} 897
+
+    </svg>
+
+    <button id="move"> Move</button></div>
+
+  <script>
+    $(function () {
+      panZoomInstance = svgPanZoom('#svg-id', {
+        zoomEnabled: true,
+        controlIconsEnabled: true,
+        fit: true,
+        center: true,
+        minZoom: 0.8
+      });
+
+      // zoom out
+      panZoomInstance.zoom(0.2)
+
+      $("#move").on("click", function () {
+        // Pan by any values from -80 to 80
+        panZoomInstance.panBy({ x: Math.round(Math.random() * 160 - 80), y: Math.round(Math.random() * 160 - 80) })
+      });
+    })
+  </script>
+</body>
+
+</html>

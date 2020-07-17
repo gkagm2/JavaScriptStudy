@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="../dist/svg-pan-zoom.js"></script>
+</head>
+
+<body>
+  <h1>SVG TEST</h1>
+
+  <script>
+
+    function SearchText() {
+      var ele = document.getElementById("serachText")
+      var searchKeyword = ele.value;
+      var svgEle = document.getElementsByTagName("svg");
+      for (var i = 0; i < svgEle.length; ++i) {
+
+        var textTag = svgEle[i].getElementsByTagName("text");
+        break;
+      }
+      var i = 0;
+      var isFind = false;
+      for (; i < textTag.length; ++i) {
+        if (searchKeyword === textTag[i].textContent) {
+          isFind = true;
+          break;
+        }
+      }
+      if (isFind == true) {
+        console.log("---found---");
+        console.log("x : " + textTag[i].getAttribute("x") + ", y : " + textTag[i].getAttribute("y"));
+        var _x = textTag[i].getAttribute("x");
+        var _y = textTag[i].getAttribute("y");
+
+        let view = document.getElementsByClassName("svg-pan-zoom_viewport");
+        if (view.length > 0) {
+          let tt = view[0].getAttribute("style");
+          console.log("cur     : " + tt);
+          let tr = tt.toString();
+          let startIdx = tr.indexOf("(");
+          let endIdx = tr.indexOf(")");
+
+          let words = tr.substring(startIdx + 1, endIdx - 1);
+          let nums = words.split(", ");
+
+          let mat_a = nums[0];
+          let mat_b = nums[1];
+          let mat_c = nums[2];
+          let mat_d = nums[3];
+          let mat_tx = nums[4];
+          let mat_ty = nums[5];
+
+          mat_a = 10;
+          mat_b = 0;
+          mat_c = 0;
+          mat_d = 10;
+          mat_tx = _x;
+          mat_ty = _y;
+          // let f_word = "transform: matrix(" + mat_a + ", " + mat_b + ", " + mat_c + ", " + mat_d + ", " + mat_tx + ", " + mat_ty + ")";
+          // view[0].setAttribute("style", f_word);
+          // console.log("changed : " + f_word);
+        }
+      }
+    }
+  </script>
+
+  <input type="text" value="A" id="serachText" />a
+  <button id="searchBtn">검색</button>
+  <button id="test">테스트</button>
+
+  <div id="container" style="width: 500px; height: 500px; border:1px solid black; ">
+    <!-- <svg id="demo-tiger" xmlns="http://www.w3.org/2000/svg" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " viewBox="0 0 900 900" version="1.1" background-color:black> -->
+
+    <svg id="demo-tiger" xmlns="http://www.w3.org/2000/svg"
+      style="display: inline; width:inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit;background-color:black"
+      version="1.1">
+
+      <text class="layerId1" x="30.978569" y="-258.705475 " fill="rgb(0.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,30.978569,-258.705475 )" font-size="1.633864">CO</text>text (10396) {layer Id:1} 71
+      <text class="layerId4" x="65.996666" y="-260.971985 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,65.996666,-260.971985 )" font-size="1.633864">CO-STS316L-3/8B-D-N-01</text>text
+      (10476) {layer Id:4} 72
+      <text class="layerId0" x="388.298767" y="-44.750000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,388.298767,-44.750000 )" font-size="3.400000">김지아 / 2017.09</text>text (10376)
+      {layer Id:0} 781
+      <text class="layerId0" x="388.298767" y="-37.250000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,388.298767,-37.250000 )" font-size="3.400000">홍길동 / 2017.09</text>text (10370)
+      {layer Id:0} 783
+      <text class="layerId6" x="199.514404" y="-32.238495 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,199.514404,-32.238495 )" font-size="1.633864">GN2-STS316L-1/4B-S-N-01</text>text
+      (10488) {layer Id:6} 784
+      <text class="layerId7" x="207.907059" y="-32.238495 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,207.907059,-32.238495 )" font-size="1.633864">PCW_S-STS304L-3/8B-S-N-01</text>text
+      (10490) {layer Id:7} 785
+      <text class="layerId7" x="216.274963" y="-32.238495 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,216.274963,-32.238495 )" font-size="1.633864">PCW_R-STS304L-3/8B-S-N-01</text>text
+      (10491) {layer Id:7} 786
+      <text class="layerId6" x="247.867569" y="-32.238495 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,247.867569,-32.238495 )" font-size="1.633864">GN2-STS316L-1/4B-S-N-02</text>text
+      (10489) {layer Id:6} 787
+      <text class="layerId7" x="256.345978" y="-32.238522 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-90.045654,256.345978,-32.238522 )" font-size="1.633864">PCW_S-STS304L-3/8B-S-N-02</text>text
+      (10492) {layer Id:7} 788
+      <text class="layerId13" x="73.501930" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,73.501930,-292.079468 )" font-size="4.250000">B</text>text (11014) {layer Id:13} 859
+      <text class="layerId13" x="118.516693" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,118.516693,-292.079468 )" font-size="4.250000">C</text>text (11016) {layer Id:13}
+      860
+      <text class="layerId13" x="208.835266" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,208.835266,-292.079468 )" font-size="4.250000">E</text>text (11020) {layer Id:13}
+      862
+      <text class="layerId13" x="344.072235" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,344.072235,-292.079468 )" font-size="4.250000">H</text>text (11026) {layer Id:13}
+      865
+      <text class="layerId13" x="2.699350" y="-169.808716 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,2.699350,-169.808716 )" font-size="4.250000">3</text>text (11032) {layer Id:13} 868
+      <text class="layerId13" x="355.653412" y="-285.318481 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,355.653412,-285.318481 )" font-size="4.250000">-NOTE-</text>text (11039) {layer
+      Id:13} 872
+      <text class="layerId13" x="399.550476" y="-136.000000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,399.550476,-136.000000 )" font-size="3.400000">CHK</text>text (11056) {layer Id:13}
+      878
+      <text class="layerId13" x="354.000000" y="-48.200001 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,354.000000,-48.200001 )" font-size="2.210000">CHECKED BY/ DATE(설계사)</text>text
+      (11060) {layer Id:13} 882
+      <text class="layerId13" x="403.421906" y="-8.400000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,403.421906,-8.400000 )" font-size="2.210000">REV.(V)</text>text (11062) {layer
+      Id:13} 884
+      <text class="layerId13" x="354.000000" y="-13.200000 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,354.000000,-13.200000 )" font-size="2.210000">REV. NO.</text>text (11077) {layer
+      Id:13} 895
+      <text class="layerId13" x="28.390821" y="-292.079468 " fill="rgb(255.000000,255.000000,255.000000)"
+        transform="rotate(-0.000000,28.390821,-292.079468 )" font-size="4.250000">A</text>text (11093) {layer Id:13} 897
+
+    </svg>
+  </div>
+  <button id="enable">enable</button>
+  <button id="disable">disable</button>
+
+  <script>
+    // Don't use window.onLoad like this in production, because it can only listen to one function.
+    window.onload = function () {
+      // Expose to window namespase for testing purposes
+      window.zoomTiger = svgPanZoom('#demo-tiger', {
+        zoomEnabled: true,
+        controlIconsEnabled: true,
+        fit: true,
+        center: true,
+        // viewportSelector: document.getElementById('demo-tiger').querySelector('#g4') // this option will make library to misbehave. Viewport should have no transform attribute
+      });
+
+      document.getElementById('enable').addEventListener('click', function () {
+        window.zoomTiger.enableControlIcons();
+      })
+      document.getElementById('disable').addEventListener('click', function () {
+        window.zoomTiger.disableControlIcons();
+      })
+      document.getElementById('searchBtn').addEventListener('click', function () {
+        SearchText();
+      })
+
+      function focusInfo() {
+        var x = 0;
+        var y = 0;
+        var scale = 1;
+      }
+      function pointInfo(){
+        var x =0;
+        var y=0;
+      }
+
+
+      document.getElementById('test').addEventListener('click', function () {
+        var ele = document.getElementById("serachText")
+        var searchKeyword = ele.value;
+        var svgEle = document.getElementsByTagName("svg");
+        for (var i = 0; i < svgEle.length; ++i) {
+
+          var textTag = svgEle[i].getElementsByTagName("text");
+          break;
+        }
+        var i = 0;
+        var isFind = false;
+        for (; i < textTag.length; ++i) {
+          if (searchKeyword === textTag[i].textContent) {
+            isFind = true;
+            break;
+          }
+        }
+        if (isFind == true) {
+          console.log("---found---");
+          console.log("x : " + textTag[i].getAttribute("x") + ", y : " + textTag[i].getAttribute("y"));
+          var _x = textTag[i].getAttribute("x");
+          var _y = textTag[i].getAttribute("y");
+
+          let view = document.getElementsByClassName("svg-pan-zoom_viewport");
+          if (view.length > 0) {
+            let tt = view[0].getAttribute("style");
+            console.log("cur     : " + tt);
+            let tr = tt.toString();
+            let startIdx = tr.indexOf("(");
+            let endIdx = tr.indexOf(")");
+
+            let words = tr.substring(startIdx + 1, endIdx - 1);
+            let nums = words.split(", ");
+
+            let mat_a = nums[0];
+            let mat_b = nums[1];
+            let mat_c = nums[2];
+            let mat_d = nums[3];
+            let mat_tx = nums[4];
+            let mat_ty = nums[5];
+
+            mat_a = 10;
+            mat_b = 0;
+            mat_c = 0;
+            mat_d = 10;
+            mat_tx = _x;
+            mat_ty = _y;
+            // let f_word = "transform: matrix(" + mat_a + ", " + mat_b + ", " + mat_c + ", " + mat_d + ", " + mat_tx + ", " + mat_ty + ")";
+            // view[0].setAttribute("style", f_word);
+            // console.log("changed : " + f_word);
+
+            var info = new focusInfo();
+            info.x = _x;
+            info.y = _y;
+            info.scale = window.zoomTiger.getZoom();
+            console.log("x : " + info.x + ", y : " + info.y + ", scale : " + info.scale);
+
+            var point = new pointInfo();
+            point.x = _x;
+            point.y = _y;
+            window.zoomTiger.zoomAtPointBy(1, point);
+            
+
+            // let t = window.zoomTiger.focusPosition(info.scale, point);
+            // console.log(t);
+          }
+        }
+      })
+    };
+  </script>
+
+</body>
+
+</html>
