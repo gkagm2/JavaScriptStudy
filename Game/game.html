@@ -48,21 +48,31 @@
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
 
-        var timeSpeed = 15;
-        var deltaTime = 0.1234;
+        var timeSpeed = 1;
 
         // ball Setting
         var ballX = canvas.width / 2;
         var ballY = canvas.height - 30;
+        var ballSpeed = 8;
+        var ballRadius = 10;
+        var ballMinX = ballX - ballRadius / 2;
+        var ballMaxX = ballX + ballRadius / 2;
+        var ballMinY = ballY - ballRadius / 2;
+        var ballMaxY = ballY + ballRadius / 2;
+        var deltaTime = 0.1234;
+
         var dx = 1;
         var dy = 1;
-        var ballSpeed = 3;
 
         // Paddle Setting
-        var paddleHeight = 10;
+        var paddleHeight = 20;
         var paddleWidth = 75;
         var paddleX = (canvas.width - paddleWidth) / 2;
         var paddleSpeed = 7;
+        var paddleMinX = paddleX;
+        var paddleMaxX = paddleMinX + paddleWidth;
+        var paddleMinY = canvas.height - paddleHeight;
+        var paddleMaxY = canvas.height;
 
         // Brick Setting
         var brickRowCount = 3;
@@ -77,17 +87,15 @@
         for (let c = 0; c < brickColumnCount; c++) {
             bricks[c] = [];
             for (let r = 0; r < brickRowCount; r++) {
-                bricks[c][r] = { x: 0, y: 0 };
+                bricks[c][r] = { x: 0, y: 0, status: 1 };
             }
         }
 
         // Keyboard boolean
         var rightPressed = false;
         var leftPressed = false;
-
-        var ballRadius = 10;
-
         var isGameOver = false;
+        var isGameClear = false;
 
         // Key Click Event
         document.addEventListener("keydown", KeyDownHandler, false);
@@ -96,7 +104,6 @@
         function KeyDownHandler(e) {
             if (e.keyCode == 39) { // right
                 rightPressed = true;
-                console.log("rightPress 1");
             }
             else if (e.keyCode == 37) { // left
                 leftPressed = true;
@@ -115,20 +122,20 @@
         function WallCollision() {
             let isHit = false;
             // max X
-            if (ballX + ballRadius / 2 >= canvas.width && dx > 0) {
-                dx *= -1;
+            if (ballMaxX >= canvas.width && dx > 0) { // right wall
+                dx = -1;
                 isHit = true;
             }
-            else if (ballX - ballRadius / 2 <= 0 && dx < 0) {
-                dx *= -1;
+            else if (ballMinX <= 0 && dx < 0) { // left wall
+                dx = 1;
                 isHit = true;
             }
-            else if (ballY + ballRadius / 2 >= canvas.height && dy < 0) {
-                dy *= -1;
-                isHit = true;
-            }
-            else if (ballY - ballRadius / 2 <= 0 && dy > 0) {
-                dy *= -1;
+            // else if (ballMaxY >= canvas.height && dy > 0) { // bottom wall
+            //     dy = -1;
+            //     isHit = true;
+            // }
+            else if (ballMinY <= 0 && dy < 0) { // top wall
+                dy = 1;
                 isHit = true;
             }
             return isHit;
@@ -138,34 +145,69 @@
             if (ballY + ballRadius / 2 > canvas.height) {
                 return true;
             }
+
             return false;
+        }
+
+        function IsGameClear() {
+            let count = brickColumnCount * brickRowCount;
+            for (let c = 0; c < brickColumnCount; c++) {
+                for (let r = 0; r < brickRowCount; r++) {
+                    if(bricks[c][r].status == 1)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         function Init() {
             isGameOver = false;
-
+            isGameClear = false;
             paddleX = (canvas.width - paddleWidth) / 2;
-            paddleSpeed = 7;
+            paddleSpeed = 3;
 
             ballX = canvas.width / 2;
             ballY = canvas.height - 30;
 
             leftPressed = false;
             rightPressed = false;
+            ballSpeed = 10;
+            dy = -1;
         }
 
         function CollisionDetection() {
-            for(let c = 0 ; c < brickColumnCount; ++c) {
-                for(let r = 0 ; r < brickRowCount; ++ r){
+            for (let c = 0; c < brickColumnCount; ++c) {
+                for (let r = 0; r < brickRowCount; ++r) {
                     let b = bricks[c][r];
-                    console.log("wow1");
-                    // // change direction
-                    if(ballY > b.y && ballY< b.y + brickHeight) {
-                        console.log("wow");
+                    if (b.status == 0) {
+                        continue;
+                    }
+                    // change direction
+                    if (ballMinY < b.y + brickHeight &&
+                        ballMaxY > b.y &&
+                        ballMinX < b.x + brickWidth &&
+                        ballMaxX > b.x) {
                         dy *= -1;
+                        b.status = 0;
+                        BallSpeedUp();
                     }
                 }
             }
+            console.log("paddle !" + ballMaxY + "  " + paddleMinY);
+            if (//ballMaxY > paddleMinY &&
+                ballX < paddleMaxX &&
+                ballX > paddleMinX &&
+                ballMaxY > paddleMinY) {
+                dy = -1;
+                console.log("ball position : " + ballX + "paddle (" + paddleMinX + ", " + paddleMaxX + " paddle----- !"+ ballMaxY + "  " + paddleMinY);
+                
+            }
+        }
+
+        function BallSpeedUp(){
+            ballSpeed += 1;
         }
 
 
@@ -173,15 +215,38 @@
         function Draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            ballX += dx * ballSpeed;
-            ballY -= dy * ballSpeed;
-            WallCollision();
+            DrawPaddle();
+            DrawCircle(ballX, ballY, ballRadius, 0);
+            DrawBricks();
+            DrawColliderArea(paddleMinX, paddleMaxX, paddleMinY, paddleMaxY);
+
+            ballX += dx * ballSpeed * deltaTime;
+            ballY += dy * ballSpeed * deltaTime;
+
+            // data update
+            ballMinX = ballX - ballRadius / 2;
+            ballMaxX = ballX + ballRadius / 2;
+            ballMinY = ballY - ballRadius / 2;
+            ballMaxY = ballY + ballRadius / 2;
+            paddleMinX = paddleX;
+            paddleMaxX = paddleX + paddleWidth;
+            paddleMinY = canvas.height - paddleHeight;
+
             CollisionDetection();
+            WallCollision();
 
-            isGameOver = IsGameOver()
+            isGameOver = IsGameOver();
 
-            if(isGameOver == true) {
+            if (isGameOver == true) {
+                Init();
                 alert("GAME OVER");
+                document.location.reload();
+            }
+
+            isGameClear = IsGameClear();
+            if(isGameClear == true){
+                Init();
+                alert("GAME Clear");
                 document.location.reload();
             }
 
@@ -192,12 +257,6 @@
             else if (leftPressed && paddleX > 0) {
                 paddleX -= paddleSpeed;
             }
-
-
-            DrawRect(canvas.width / 2 - 50 / 2, canvas.height / 2 - 50 / 2, 50, 50);
-            DrawPaddle();
-            DrawCircle(ballX, ballY, ballRadius, 0);
-            DrawBricks();
         }
         ////////////////// Update End  //////////////////
 
@@ -216,12 +275,24 @@
             paddleSpeed -= _speed;
         }
 
+        function DrawColliderArea(_minX, _maxX, _minY, _maxY) {
+            ctx.beginPath();
+            ctx.rect(_minX,_minY, _minY, _maxY);
+            ctx.fillStyle = "#FFFF00";
+            ctx.closePath();
+        }
+
         function DrawBricks() {
             for (let c = 0; c < brickColumnCount; c++) {
+
                 for (let r = 0; r < brickRowCount; r++) {
-                    let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
-                    let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
-                    DrawRect(brickX, brickY, brickWidth, brickHeight);
+                    if (bricks[c][r].status == 1) {
+                        let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+                        let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+                        bricks[c][r].x = brickX;
+                        bricks[c][r].y = brickY;
+                        DrawRect(brickX, brickY, brickWidth, brickHeight);
+                    }
                 }
             }
         }
@@ -260,7 +331,7 @@
             x: 0,
             y: 0
         }
-
+        Init();
         setInterval(Draw, timeSpeed);
     </script>
 
