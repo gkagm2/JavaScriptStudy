@@ -2,7 +2,7 @@ const density = 'N@#W$9876543210?!abc;:+=-,._ ';
 let screenX = 400;
 let screenY = 400;
 let gloria;
-let w =15;
+let w =1;
 // Simple
 //const grey = (r+g+b) /3;
 // Luminance
@@ -18,6 +18,8 @@ function preload(){
 
 function setup() {
   createCanvas(width, height);
+  video = createCapture(VIDEO);
+  video.size(48,48);
 }
 
 function draw() {
