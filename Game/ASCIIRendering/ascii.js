@@ -2,7 +2,7 @@ const density = 'N@#W$9876543210?!abc;:+=-,._ ';
 let screenX = 400;
 let screenY = 400;
 let gloria;
-let w =1;
+let w =15;
 // Simple
 //const grey = (r+g+b) /3;
 // Luminance
@@ -13,7 +13,7 @@ let w =1;
 //const grey = min(r,g,b);
 
 function preload(){
-    gloria = loadImage("casual29.png");
+    gloria = loadImage("Monster.bmp");
 }
 
 function setup() {
